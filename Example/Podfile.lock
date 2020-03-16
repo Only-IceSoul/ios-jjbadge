@@ -1,0 +1,16 @@
+PODS:
+  - JJBadge (0.1.0)
+
+DEPENDENCIES:
+  - JJBadge (from `../`)
+
+EXTERNAL SOURCES:
+  JJBadge:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  JJBadge: 386dee8b4fc5b1f9e63b90398455a5838f871548
+
+PODFILE CHECKSUM: cfcaf8cb4f9ae511ce84e0ea6bc72739fc64200e
+
+COCOAPODS: 1.9.1

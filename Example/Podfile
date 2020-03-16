@@ -1,0 +1,13 @@
+platform :ios, '12.0'
+
+use_frameworks!
+
+target 'JJBadge_Example' do
+  pod 'JJBadge', :path => '../'
+
+  target 'JJBadge_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

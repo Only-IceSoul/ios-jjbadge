@@ -1,0 +1,6 @@
+framework module JJBadge {
+  umbrella header "JJBadge-umbrella.h"
+
+  export *
+  module * { export * }
+}
