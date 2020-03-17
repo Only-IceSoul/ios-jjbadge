@@ -15,6 +15,7 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		AA23877DD57E806EDB7CD307 /* Pods_JJBadge_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FCD882BE1598F3A86293E /* Pods_JJBadge_Example.framework */; };
+		D09CE1B724204C3E00D263F6 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D09CE1B624204C3E00D263F6 /* Lato-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		BD7BB2812EC605C3F3F0BEB3 /* Pods-JJBadge_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JJBadge_Tests.debug.xcconfig"; path = "Target Support Files/Pods-JJBadge_Tests/Pods-JJBadge_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		CCF4357DA2E33684D8D2CEBE /* Pods_JJBadge_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JJBadge_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0224FB22420173700ED8C3C /* JJBadge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JJBadge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D09CE1B624204C3E00D263F6 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		DA5FCD882BE1598F3A86293E /* Pods_JJBadge_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JJBadge_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAB20F5F8AD4424155EA033D /* Pods-JJBadge_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JJBadge_Example.release.xcconfig"; path = "Target Support Files/Pods-JJBadge_Example/Pods-JJBadge_Example.release.xcconfig"; sourceTree = "<group>"; };
 		F72E0DF7F8CC25FB1A485EAF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		607FACD21AFB9204008FA782 /* Example for JJBadge */ = {
 			isa = PBXGroup;
 			children = (
+				D09CE1B524204C2F00D263F6 /* fonts */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -159,6 +162,14 @@
 				CCF4357DA2E33684D8D2CEBE /* Pods_JJBadge_Tests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D09CE1B524204C2F00D263F6 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D09CE1B624204C3E00D263F6 /* Lato-Bold.ttf */,
+			);
+			name = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +262,7 @@
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				D09CE1B724204C3E00D263F6 /* Lato-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

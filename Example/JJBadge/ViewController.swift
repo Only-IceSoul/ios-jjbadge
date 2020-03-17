@@ -17,20 +17,22 @@ class ViewController: UIViewController {
         
     
         let child = JJBadgeView()
-            .setTextColor(UIColor.white)
-            .setTextSize(10)
+        .setText(text: "99+")
+            .setTextColor(UIColor.green)
+        .setTextSize(20)
+        .setFont("Lato-Bold")
             .setStrokeWidth(0.5)
-          .setText(text: "99+")
-        
+            .setStrokeColor(UIColor.red)
+            .setTextOffsetX(-2)
+            .setTextOffsetY(4)
+            .setBackgroundColor(UIColor.black)
     
-        
-            
         view.addSubview(child)
-        child.backgroundColor = UIColor.red
         child.clCenterInParent()
         .clApply()
     
         
+       
     }
 
 

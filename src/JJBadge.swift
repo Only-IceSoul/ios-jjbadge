@@ -11,12 +11,15 @@ import UIKit
 public class JJBadgeView : UIView {
     
   
-    private var mText = NSMutableAttributedString(string: "")
-    private var mTextSize : CGFloat = 0
-    private var mFont = UIFont.systemFont(ofSize: 0)
-    private var mTextColor = UIColor.black
+    private var mText = NSMutableAttributedString(string: "99+")
+    private var mTextSize : CGFloat = 15
+    private var mFont = UIFont.systemFont(ofSize: 15)
+    private var mTextColor = UIColor.white
    
-      public init() {super.init(frame:.zero)}
+      public init() {
+        super.init(frame:.zero)
+        backgroundColor = UIColor.red
+    }
       
       required public init?(coder aDecoder: NSCoder) {
           fatalError("init(coder:) has not been implemented")
@@ -92,8 +95,8 @@ public class JJBadgeView : UIView {
             return self
     }
        @discardableResult
-    public func setStorkeColor(_ color:CGColor?) -> JJBadgeView{
-        if color != nil {layer.borderColor = color!}
+    public func setStrokeColor(_ color:UIColor?) -> JJBadgeView{
+        if color != nil {layer.borderColor = color!.cgColor}
         return self
     }
      @discardableResult
@@ -101,6 +104,12 @@ public class JJBadgeView : UIView {
         layer.borderWidth = value
         return self
     }
+    
+    @discardableResult
+       public func setBackgroundColor(_ color: UIColor?) -> JJBadgeView {
+           backgroundColor = color
+           return self
+       }
 
  
     
@@ -170,18 +179,7 @@ public class JJBadgeView : UIView {
       switch shape {
       case .circle:
           self.layer.cornerRadius = min(self.bounds.height,self.bounds.width) / 2
-      case .cornerVerySmall:
-          self.layer.cornerRadius = min(self.bounds.height,self.bounds.width) * 0.03
-      case .cornerSmall:
-        self.layer.cornerRadius = min(self.bounds.height,self.bounds.width) * 0.05
-       case .cornerExtraSmall:
-              self.layer.cornerRadius = min(self.bounds.height,self.bounds.width) * 0.065
-       case .cornerMedium:
-            self.layer.cornerRadius = min(self.bounds.height,self.bounds.width) * 0.1
-       case .cornerLarge:
-                  self.layer.cornerRadius = min(self.bounds.height,self.bounds.width) * 0.15
-       case .cornerExtraLarge:
-                         self.layer.cornerRadius = min(self.bounds.height,self.bounds.width) * 0.2
+    
       default:
           print("not implemented")
       }
