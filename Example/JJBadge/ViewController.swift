@@ -11,21 +11,24 @@ import JJBadge
 
 
 class ViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var badge: JJBadgeView!
+      let child = JJBadgeView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
     
-        let child = JJBadgeView()
-        .setText(text: "99+")
+      
+        child.setText(text: "99+")
             .setTextColor(UIColor.green)
         .setTextSize(20)
         .setFont("Lato-Bold")
             .setStrokeWidth(0.5)
             .setStrokeColor(UIColor.red)
-            .setTextOffsetX(-2)
-            .setTextOffsetY(4)
+        
             .setBackgroundColor(UIColor.black)
     
         view.addSubview(child)
@@ -36,7 +39,14 @@ class ViewController: UIViewController {
        
     }
 
-
+    private var mCounter = 1
+    @IBAction func handleButton(_ sender: UIButton) {
+        mCounter = mCounter + 1
+        child.setText(text: String(mCounter))
+        
+        
+    }
+    
 
 }
 

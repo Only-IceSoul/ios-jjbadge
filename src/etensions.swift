@@ -16,8 +16,8 @@ public extension NSAttributedString {
         let boundingBox = self.boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
          
          //redondeo float
-         cgSize.width =  ceil(boundingBox.width)
-         cgSize.height = ceil(boundingBox.height)
+         cgSize.width =  boundingBox.width
+         cgSize.height = boundingBox.height
      
      }
 
@@ -33,7 +33,7 @@ public struct JJConstraintPriority {
 }
 
 public class JJConstraintSet {
-    weak public var top, leading, bottom, trailing, width, height, centerXanchor, centerYanchor: NSLayoutConstraint?
+     public var top, leading, bottom, trailing, width, height, centerXanchor, centerYanchor: NSLayoutConstraint?
 }
 
    

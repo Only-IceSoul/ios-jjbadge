@@ -8,36 +8,169 @@
 
 import UIKit
 
+@IBDesignable
 public class JJBadgeView : UIView {
     
   
+    @IBInspectable public var text : String = "99+"{
+        didSet{
+            mText.mutableString.setString(text)
+        }
+    }
+    @IBInspectable public var textSize : CGFloat = 15{
+           didSet{
+               mTextSize = textSize
+           }
+    }
+    
+    @IBInspectable public var textColor : UIColor = UIColor.black {
+             didSet{
+                 mTextColor = textColor
+             }
+      }
+    
+    @IBInspectable public var font : String = "" {
+           didSet{
+                if font.count > 0 {
+                    mFont = UIFont(name: font, size: 15) ?? UIFont.systemFont(ofSize: 15)
+                }
+           }
+    }
+    
+    @IBInspectable public var borderColor : UIColor =  UIColor.black {
+           didSet{
+            layer.borderColor = borderColor.cgColor
+           }
+    }
+    
+    @IBInspectable public var borderWidth : CGFloat =  0 {
+         didSet{
+          layer.borderWidth = borderWidth
+        }
+    }
+    
+    @IBInspectable public var offSetX : CGFloat =  0 {
+            didSet{
+                mTextOffsetX = offSetX
+            }
+    }
+    @IBInspectable public var offSetY : CGFloat =  0 {
+         didSet{
+               mTextOffsetY = offSetY
+           }
+    }
+    
+    @IBInspectable public var insetY : CGFloat =  0 {
+           didSet{
+            mInsetY =  insetY / 100
+            }
+    }
+    
+    @IBInspectable public var insetX : CGFloat =  0 {
+             didSet{
+              mInsetX = insetX / 100
+            }
+    }
+    
+    @IBInspectable public var textHidden : Bool =  false {
+                didSet{
+                 mIsTextHidden = textHidden
+               }
+       }
+      
     private var mText = NSMutableAttributedString(string: "99+")
     private var mTextSize : CGFloat = 15
     private var mFont = UIFont.systemFont(ofSize: 15)
-    private var mTextColor = UIColor.white
+    private var mTextColor = UIColor.black
+    private var mInsetY :CGFloat = 0.0
+    private var mInsetX :CGFloat = 0.0
+    private var mTextOffsetX : CGFloat = 0
+    private var mTextOffsetY : CGFloat = 0
+    private var mIsTextHidden = false
    
-      public init() {
-        super.init(frame:.zero)
-        backgroundColor = UIColor.red
+    public convenience init() {
+        self.init(frame:.zero)
     }
-      
-      required public init?(coder aDecoder: NSCoder) {
-          fatalError("init(coder:) has not been implemented")
+    override public init(frame: CGRect) {
+         super.init(frame:.zero)
+    }
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
       }
+    public override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        layer.cornerRadius = frame.size.height / 2
+         clipsToBounds = true
+    }
     
-   
-
-    override public var bounds: CGRect {
-        didSet{
-            makeShape(shape: .circle)
-            mText.sizeOneLine(cgSize: &mBoundsText)
+    private var mDeltaY = 0
+    private var mDeltaX = 0
+    private var mBoundsText = CGSize(width: 0, height: 0)
+    override public func draw(_ rect: CGRect) {
+        super.draw(rect)
+        if(self.mText.length > 0){
+                prepareText()
+               let deltaY =  ( bounds.height / 2 - mBoundsText.height / 2 ) + mTextOffsetY
+               let deltaX = ( bounds.width / 2 - mBoundsText.width / 2 ) + mTextOffsetX
+              
+            if(!mIsTextHidden) { self.mText.draw(at: CGPoint(x: deltaX,y: deltaY)) }
         }
+           
+    }
+    //constrained
+    private var mDesiredWidth : CGFloat = 0
+    private var mDesiredHeight : CGFloat = 0
+    public override var intrinsicContentSize: CGSize{
+        computeWrapContentSize()
+        return .init(width: mDesiredWidth, height: mDesiredHeight)
+    }
+    private func prepareText(){
+        mFont = mFont.withSize(mTextSize)
+        self.mText.addAttributes([.font : mFont,
+            .foregroundColor: mTextColor], range: NSRange(location: 0, length: self.mText.length))
+                               
+       self.mText.sizeOneLine(cgSize: &mBoundsText)
+    }
+    private func computeWrapContentSize(){
+        if mText.length > 0 {
+            prepareText()
+            let iX = self.mText.length > 2 ? 0.5 + mInsetX : 0.6 + mInsetX
+            let iY = 0.3 + mInsetY
+            let fiX = iX < 0 ? 0 : iX
+            let fiY = iY < 0 ? 0 : iY
+            let margin = mBoundsText.width * fiX
+             let marginH = mBoundsText.height * fiY
+        mDesiredHeight = mBoundsText.height + marginH
+        mDesiredWidth = mBoundsText.width + margin
+                
+        if mText.length == 1 {
+            mDesiredWidth = mDesiredHeight }
+
+        }else{
+            mDesiredHeight = 0
+            mDesiredWidth = 0
+        }
+    }
+    // code
+    public override var bounds: CGRect{
+        didSet{
+            makeShape()
+        }
+    }
+    //storyboard
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+         makeShape()
+    }
+    private func makeShape(){
+    self.layer.cornerRadius = min(self.bounds.height,self.bounds.width) / 2
+    self.clipsToBounds = true
     }
     
     @discardableResult
    public func setText(text:String) -> JJBadgeView{
         self.mText.mutableString.setString(text)
-        setNeedsUpdateConstraints()
+        invalidateIntrinsicContentSize()
         setNeedsDisplay()
         return self
     }
@@ -46,12 +179,11 @@ public class JJBadgeView : UIView {
     public  func setTextSize(_ size : CGFloat) -> JJBadgeView{
         if(size > -1){
             mTextSize = size
-            mFont = mFont.withSize(mTextSize)
-            setNeedsUpdateConstraints()
+            invalidateIntrinsicContentSize()
             setNeedsDisplay()
         }
           return self
-      }
+     }
     
     @discardableResult
     public func setFont(_ name: String) -> JJBadgeView{
@@ -61,7 +193,6 @@ public class JJBadgeView : UIView {
         }
         return self
     }
-  
     
     @discardableResult
    public  func setTextColor(_ color: UIColor?)-> JJBadgeView{
@@ -71,8 +202,7 @@ public class JJBadgeView : UIView {
            }
          return self
     }
-    
-    private var mIsTextHidden = false
+
     @discardableResult
     public func setIsTextHidden(_ boolean: Bool)-> JJBadgeView{
            mIsTextHidden = boolean
@@ -80,14 +210,29 @@ public class JJBadgeView : UIView {
             return self
     }
     
-    private var mTextOffsetX : CGFloat = 0
+    @discardableResult
+    public  func setInsetX(_ value : CGFloat) -> JJBadgeView{
+             mInsetX = value / 100
+              invalidateIntrinsicContentSize()
+              setNeedsDisplay()
+            return self
+    }
+    
+    @discardableResult
+     public func setInsetY(_ value : CGFloat) -> JJBadgeView{
+            mInsetY = value / 100
+            invalidateIntrinsicContentSize()
+            setNeedsDisplay()
+             return self
+     }
+    
     @discardableResult
     public func setTextOffsetX(_ value: CGFloat)-> JJBadgeView{
          mTextOffsetX = value
          setNeedsDisplay()
           return self
     }
-    private var mTextOffsetY : CGFloat = 0
+
     @discardableResult
     public func setTextOffsetY(_ value: CGFloat)-> JJBadgeView{
            mTextOffsetY = value
@@ -106,93 +251,14 @@ public class JJBadgeView : UIView {
     }
     
     @discardableResult
-       public func setBackgroundColor(_ color: UIColor?) -> JJBadgeView {
-           backgroundColor = color
-           return self
-       }
-
- 
-    
-    private var mWidthIsWrapContent = true
-    private var mHeightIsWrapContent = true
-    private var mDesiredWidth : CGFloat = 0
-    private var mDesiredHeight : CGFloat = 0
-    override public func updateConstraints() {
-        super.updateConstraints()
-        if constraints.count > 0{
-            constraints.forEach { (cons) in
-                if cons.firstAnchor == widthAnchor {
-                    mWidthIsWrapContent = false  }
-                if cons.firstAnchor == heightAnchor {
-                    mHeightIsWrapContent = false  }
-            }
-        } else {
-            mWidthIsWrapContent = true
-            mHeightIsWrapContent = true
-        }
-        
-        computeWrapContentSize()
-        if(mWidthIsWrapContent) { clWidth(size: mDesiredWidth) }
-        if(mHeightIsWrapContent) { clHeight(size: mDesiredHeight) }
-        if(mWidthIsWrapContent || mHeightIsWrapContent) { clApply() }
-    
-    }
-  
-
-    private func computeWrapContentSize(){
-        if mText.length > 0 {
-          self.mText.addAttributes([.font : mFont,
-                  .foregroundColor: mTextColor], range: NSRange(location: 0, length: self.mText.length))
-                        
-          self.mText.sizeOneLine(cgSize: &mBoundsText)
-          let margin = mBoundsText.height * 0.55
-          mDesiredHeight = mBoundsText.height + margin
-          mDesiredWidth = mBoundsText.width + margin
-                  
-         if mText.length == 1 { mDesiredWidth = mDesiredHeight }
-        }else{
-            mDesiredHeight = 0
-            mDesiredWidth = 0
-        }
-    }
-    
-    
-
-    private var mDeltaY = 0
-    private var mDeltaX = 0
-    private var mBoundsText = CGSize(width: 0, height: 0)
-    override public func draw(_ rect: CGRect) {
-        super.draw(rect)
-        if(self.mText.length > 0){
-      
-            let deltaY =  ( bounds.height / 2 - mBoundsText.height / 2 ) + mTextOffsetY
-            let deltaX = ( bounds.width / 2 - mBoundsText.width / 2 ) + mTextOffsetX
-           
-            if(!mIsTextHidden) { self.mText.draw(at: CGPoint(x: deltaX,y: deltaY)) }
-        }
-        
-    }
-    
-    
-
-    private func makeShape(shape: JJBadgeView.TypeShape){
-      switch shape {
-      case .circle:
-          self.layer.cornerRadius = min(self.bounds.height,self.bounds.width) / 2
-    
-      default:
-          print("not implemented")
-      }
-      self.clipsToBounds = true
-    }
-
-    public enum TypeShape {
-      case none, circle , cornerSmall, cornerVerySmall,cornerMedium,cornerLarge,cornerExtraLarge,cornerExtraSmall
+    public func setBackgroundColor(_ color: UIColor?) -> JJBadgeView {
+        backgroundColor = color
+        return self
     }
 
     
     
-    private var mConstraints = JJConstraintSet()
+    public var mConstraints = JJConstraintSet()
       private func addAnchoredConstraints(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, margins: UIEdgeInsets? = nil,wAnchor: NSLayoutDimension? = nil, multiplierW: CGFloat = 1, hAnchor: NSLayoutDimension? = nil, multiplierH: CGFloat = 1, width: CGFloat = -1, height:CGFloat = -1, centerX: NSLayoutXAxisAnchor? = nil,constantX:CGFloat = 0, centerY:  NSLayoutYAxisAnchor? = nil, constantY:CGFloat = 0,priority: JJConstraintPriority = JJConstraintPriority.normal,text:String = "") {
            
            translatesAutoresizingMaskIntoConstraints = false
