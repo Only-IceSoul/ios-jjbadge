@@ -20,7 +20,6 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'JJBadge'
-
 ```
 
 ## Example
@@ -30,8 +29,23 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Preview
 
-
 <img src="assets/ios.jpg" width="300">
+
+## Creating a badge in the Storyboard
+
+* Drag a UIView to your view.
+* Set its class to JJBadgeView in identity inspector.
+* Set the module property to JJBadge 
+
+<img src="assets/setup.jpg" width="250">
+
+## Creating a badge from the code
+```Swift
+ import JJBadge
+
+ let badge = JJBadgeView()
+ view.addSubview(badge)
+```
 
 
 ## Customization
@@ -47,12 +61,16 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 | setIsTextHidden | Make text visible or hidden | Bool | false |
 | setTextOffsetX | move the text - axis X | CGFloat | -0 |
 | setTextOffsetY | move the text - axis Y  | CGFloat | -0 |
+| setInsetX | wrapContent inset axis X | CGFloat | -0 |
+| setInsetY | wrapContent inset axis Y  | CGFloat | -0 |
 | setBackgroundColor | backgroundColor  | UIColor | red |
 
 
 ## Size 
 
+using constraints
+
 | Name | description | equal 
 | --- | --- | --- |
-| width | Undefined  | Wrap Content |
-| height | Undefined | Wrap Content |
+| width | undefined  | Wrap Content |
+| height | undefined | Wrap Content |

@@ -10,7 +10,6 @@
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="JJBadge_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
@@ -27,7 +26,7 @@
                                     <action selector="handleButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="L3g-dp-z9z"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04s-UI-0LS" customClass="JJBadgeView" customModule="JJBadge">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="04s-UI-0LS" customClass="JJBadgeView" customModule="JJBadge">
                                 <rect key="frame" x="153.5" y="60" width="68" height="39"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
@@ -70,8 +69,9 @@
                         </constraints>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="76" y="-99"/>
+            <point key="canvasLocation" x="-257" y="-152"/>
         </scene>
     </scenes>
 </document>
